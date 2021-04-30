@@ -1,0 +1,31 @@
+@import "./variables";
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: -webkit-fill-available;
+}
+
+body{
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+}
+
+#app {
+  width: 100%;
+  max-width: $BREAKPOINT_SMALL;
+  margin: 0 auto;
+  background: #f7f7f7;
+  flex: 1;
+}

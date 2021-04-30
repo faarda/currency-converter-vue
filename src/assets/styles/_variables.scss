@@ -1,0 +1,8 @@
+$BREAKPOINT_SMALL: 550px;
+
+// MIXINS
+@mixin name {
+  @media screen and (min-width: $BREAKPOINT_SMALL) {
+    @content;
+  }
+}
