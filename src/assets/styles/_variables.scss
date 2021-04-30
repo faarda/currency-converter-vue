@@ -1,7 +1,11 @@
 $BREAKPOINT_SMALL: 550px;
 
+$color-blue: #59ADCC;
+$color-green: #77C5C8;
+$color-green-light: #7EE0C6;
+
 // MIXINS
-@mixin name {
+@mixin large {
   @media screen and (min-width: $BREAKPOINT_SMALL) {
     @content;
   }

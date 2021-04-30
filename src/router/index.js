@@ -1,18 +1,24 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Converter from "../views/Converter.vue";
+import NotFound from "../views/NotFound.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    redirect: "/convert/USD/GBP"
+    redirect: "/convert/USD/GBP",
   },
   {
     path: "/convert/:from/:to",
-    component: Converter
-  }
+    component: Converter,
+  },
+  {
+    path: "*",
+    name: "Not Found",
+    component: NotFound,
+  },
 ];
 
 const router = new VueRouter({
