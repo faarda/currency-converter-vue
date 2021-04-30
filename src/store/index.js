@@ -12,7 +12,7 @@ export default new Vuex.Store({
         code: "USD"
       },
       {
-        name: "BRITISH POUND",
+        name: "POUND STERLING",
         symbol: "£",
         code: "GBP"
       },
@@ -32,15 +32,29 @@ export default new Vuex.Store({
         code: "INR"
       }
     ],
-    rates: {},
+    baseEurRates: {},
   },
   mutations: {
     ADD_RATES: (state, payload) => {
-      const { currency, rates } = payload;
-      state.rates[currency] = rates;
+      state.baseEurRates = payload;
     },
   },
   actions: {
-    fetchRates: async () => {},
+    fetchBaseEurRates: (context) => {
+      return new Promise((resolve, reject) => {
+        const symbolsList = context.state.currencies.map(({code}) => code).filter(code => code !== 'EUR').join(",");
+          fetch(`http://data.fixer.io/api/latest?access_key=${process.env.VUE_APP_FIXER_API_KEY}&base=EUR&symbols=${symbolsList}&format=1`)
+          .then(response => response.json())
+          .then(data => {
+            if(data.success){
+              context.commit('ADD_RATES', {...data.rates, EUR: 1})
+              resolve('ok');
+            }else{
+              reject('something went wrong');
+            }
+          })
+          .catch(err => reject(err))
+      })
+    },
   },
 });

@@ -43,6 +43,39 @@ body{
   color: #fff;
   position: relative;
 
+  &__error{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background: $color-blue;
+    width: 100%;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    h6{
+      font-size: 2rem;
+      font-weight: 600;
+      max-width: 22rem;
+      text-align: center;
+    }
+
+    &__link{
+      font-size: 15px;
+      font-weight: 500;
+      display: inline-block;
+      margin-top: 3rem;
+      color: rgba(#fff, 0.8);
+      padding: 1.2rem 1.8rem;
+      background: rgba(#fff, 0.15);
+      text-decoration: none;
+      font-weight: 500;
+    }
+  }
+
   &__main{
     flex: 1;
     display: grid;
@@ -226,4 +259,10 @@ body{
       }
     }
   }
+}
+
+.scaling-text{
+  --length: 0;
+  transition: .3s ease-in all;
+  font-size: calc((1 - ((0.1 * var(--length))/5)) * 4.5rem);
 }

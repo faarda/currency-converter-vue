@@ -13,12 +13,12 @@
           <span class="currency__main__value__currency__name">{{selectedCurrency.name}}</span>
         </div>
         <h1 class="converter__main__value__value">
-          {{selectedValue}}
+          {{numberWithCommas(selectedValue)}}
         </h1>
       </div>
     </div>
     <ul class="converter__currency-picker__list">
-      <li :class="`converter__currency-picker__list-item ${currency.code === selectedCurrency.code ? 'selected' : ''}`" v-for="currency in currencies" :key="currency.code">
+      <li :class="`converter__currency-picker__list-item ${currency.code === selectedCurrency.code ? 'selected' : ''}`" v-for="currency in currencies" :key="currency.code" @click="pickCurrency(currency)">
         <div class="converter__currency-picker__list-item__details">
           <h2 class="converter__currency-picker__list-item__details__sign">{{currency.symbol}}</h2>
           <span class="converter__currency-picker__list-item__details__name">{{currency.name}}</span>
@@ -32,8 +32,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { getCurrencyFromCode } from '../utils/functions'
+import { getCurrencyFromCode, numberWithCommas } from '../utils/functions'
 
 export default {
   name: "CurrencyPicker",
@@ -46,6 +45,10 @@ export default {
       required: true,
       type: String
     },
+    currencies: {
+      type: Array,
+      required: true
+    },
     pickerOpen: Boolean
   },
   data: function() {
@@ -54,20 +57,26 @@ export default {
       selectedValue: ""
     }
   },
-  computed: {
-    ...mapState({
-      currencies: state => state.currencies
-    })
-  },
   watch: {
     picking: {
       handler: function(val) {
         const converterData = this.converter[val];
         this.selectedCurrency = getCurrencyFromCode(this.currencies, converterData.currency);
-        this.selectedValue = converterData.formattedValue
+        this.selectedValue = converterData.value
       },
       immediate: true
+    },
+    converter(){
+      const converterData = this.converter[this.picking];
+      this.selectedCurrency = getCurrencyFromCode(this.currencies, converterData.currency);
+      this.selectedValue = converterData.value
     }
+  },
+  methods: {
+    pickCurrency(currency){
+      this.$emit('currency-picked', { where: this.picking, currency: currency.code })      
+    },
+    numberWithCommas
   }
 }
 </script>

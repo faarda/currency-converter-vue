@@ -4,6 +4,16 @@ const getCurrencyFromCode = (currencyList, code ) => {
   });
 }
 
+const numberWithCommas = (number) => {
+  return number > 9_999_999 ? Number(number).toExponential(4) : number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+const getDigitsLength = (number) => {
+  return String(number).length;
+}
+
 export {
-  getCurrencyFromCode
+  getCurrencyFromCode,
+  numberWithCommas,
+  getDigitsLength
 }
