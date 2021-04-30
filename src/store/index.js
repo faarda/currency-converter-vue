@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { currenciesToCommaSeparatedList } from '../utils/functions'
+import { currenciesToCommaSeparatedList } from "../utils/functions";
 
 Vue.use(Vuex);
 
@@ -10,28 +10,28 @@ export default new Vuex.Store({
       {
         name: "US DOLLAR",
         symbol: "$",
-        code: "USD"
+        code: "USD",
       },
       {
         name: "POUND STERLING",
         symbol: "£",
-        code: "GBP"
+        code: "GBP",
       },
       {
         name: "EURO",
         symbol: "€",
-        code: "EUR"
+        code: "EUR",
       },
       {
         name: "CHINESE YUAN",
         symbol: "¥",
-        code: "CNY"
+        code: "CNY",
       },
       {
         name: "INDIAN RUPEE",
         symbol: "₹",
-        code: "INR"
-      }
+        code: "INR",
+      },
     ],
     baseEurRates: {},
   },
@@ -41,21 +41,26 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    //fetch exchange rates with EUR as the base
     fetchBaseEurRates: (context) => {
       return new Promise((resolve, reject) => {
-        const symbolsList = currenciesToCommaSeparatedList(context.state.currencies);
-        fetch(`http://data.fixer.io/api/latest?access_key=${process.env.VUE_APP_FIXER_API_KEY}&base=EUR&symbols=${symbolsList}&format=1`)
-          .then(response => response.json())
-          .then(data => {
-            if(data.success){
-              context.commit('ADD_RATES', data.rates)
-              resolve('ok');
-            }else{
-              reject('something went wrong');
+        const symbolsList = currenciesToCommaSeparatedList(
+          context.state.currencies
+        );
+        fetch(
+          `http://data.fixer.io/api/latest?access_key=${process.env.VUE_APP_FIXER_API_KEY}&base=EUR&symbols=${symbolsList}&format=1`
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              context.commit("ADD_RATES", data.rates);
+              resolve("ok");
+            } else {
+              reject("something went wrong");
             }
           })
-          .catch(err => reject(err))
-      })
+          .catch((err) => reject(err));
+      });
     },
   },
 });
