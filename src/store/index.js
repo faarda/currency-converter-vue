@@ -5,7 +5,33 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    currencies: [],
+    currencies: [
+      {
+        name: "US DOLLAR",
+        symbol: "$",
+        code: "USD"
+      },
+      {
+        name: "BRITISH POUND",
+        symbol: "£",
+        code: "GBP"
+      },
+      {
+        name: "EURO",
+        symbol: "€",
+        code: "EUR"
+      },
+      {
+        name: "CHINESE YUAN",
+        symbol: "¥",
+        code: "CNY"
+      },
+      {
+        name: "INDIAN RUPEE",
+        symbol: "₹",
+        code: "INR"
+      }
+    ],
     rates: {},
   },
   mutations: {
