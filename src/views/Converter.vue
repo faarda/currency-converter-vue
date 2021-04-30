@@ -3,7 +3,7 @@
     <value-selector @open-picker="togglePicker($event)" :converter="converter" :currencies="currencies" />
     <currency-picker :converter="converter" :picking="picking" :pickerOpen="isCurrencyPickerOpen" @close-picker="togglePicker()" :currencies="currencies" @currency-picked="switchRouteCurrency($event)" />
     <div class="converter__error" v-if="isCurrencyInvalid">
-      <h6>Currency combination not supported</h6>
+      <h6>Currency combination not supported, supported currencies are {{currenciesToCommaSeparatedList(currencies)}}</h6>
       <router-link class="converter__error__link" to="/">Go back home</router-link>
     </div>
   </div>
@@ -14,6 +14,7 @@
   import CurrencyPicker from '@/components/CurrencyPicker.vue';
   import { mapState } from 'vuex'
   import { eventBus } from '../main'
+  import { currenciesToCommaSeparatedList } from '../utils/functions'
 
   export default {
     name: "Converter",
@@ -88,6 +89,8 @@
             to: to.toUpperCase(),
             from: from.toUpperCase()
           }
+          
+          this.isCurrencyInvalid = false;
         }else{
           this.isCurrencyInvalid = true;
         }
@@ -113,7 +116,7 @@
           alert("Cannot convert the same currency")
         }
       },
-
+      currenciesToCommaSeparatedList
     },
     watch: {
       $route() {

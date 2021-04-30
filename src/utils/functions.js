@@ -12,8 +12,13 @@ const getDigitsLength = (number) => {
   return String(number).length;
 }
 
+const currenciesToCommaSeparatedList = (currencies) => {
+  return currencies.map(({code}) => code).join(",");
+}
+
 export {
   getCurrencyFromCode,
   numberWithCommas,
-  getDigitsLength
+  getDigitsLength,
+  currenciesToCommaSeparatedList
 }

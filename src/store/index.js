@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import { currenciesToCommaSeparatedList } from '../utils/functions'
 
 Vue.use(Vuex);
 
@@ -42,12 +43,12 @@ export default new Vuex.Store({
   actions: {
     fetchBaseEurRates: (context) => {
       return new Promise((resolve, reject) => {
-        const symbolsList = context.state.currencies.map(({code}) => code).filter(code => code !== 'EUR').join(",");
-          fetch(`http://data.fixer.io/api/latest?access_key=${process.env.VUE_APP_FIXER_API_KEY}&base=EUR&symbols=${symbolsList}&format=1`)
+        const symbolsList = currenciesToCommaSeparatedList(context.state.currencies);
+        fetch(`http://data.fixer.io/api/latest?access_key=${process.env.VUE_APP_FIXER_API_KEY}&base=EUR&symbols=${symbolsList}&format=1`)
           .then(response => response.json())
           .then(data => {
             if(data.success){
-              context.commit('ADD_RATES', {...data.rates, EUR: 1})
+              context.commit('ADD_RATES', data.rates)
               resolve('ok');
             }else{
               reject('something went wrong');
