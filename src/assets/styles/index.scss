@@ -196,14 +196,22 @@ body{
     width: 100%;
     background: $color-blue;
     z-index: 50;
-    display: grid;
-    grid-template-rows: 32% 1fr;
+    display: flex;
+    flex-direction: column;
+    // grid-template-rows: 32% 1fr;
     transform: translateX(100%);
     opacity: 1;
     transition: all .3s ease-in;
 
-    @include large{
-      grid-template-rows: 30% 1fr;
+    // @include large{
+    //   grid-template-rows: 30% 1fr;
+    // }
+    .converter__main__top{
+      flex: 0.47;
+
+      @include large{
+        flex: 0.428;
+      }
     }
 
     &.open{
