@@ -1,5 +1,7 @@
 # currency-converter-vue
 
+Live project is here (https://currency-converter-with-vue.netlify.app/)[https://currency-converter-with-vue.netlify.app/]
+
 ## Project setup
 ```
 yarn install
