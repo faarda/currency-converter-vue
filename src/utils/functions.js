@@ -5,7 +5,7 @@ const getCurrencyFromCode = (currencyList, code) => {
 };
 
 const numberWithCommas = (number) => {
-  return number > 9_999_999
+  return number > 9_999_999_999
     ? Number(number).toExponential(4)
     : number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };

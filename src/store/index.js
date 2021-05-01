@@ -47,11 +47,14 @@ export default new Vuex.Store({
         const symbolsList = currenciesToCommaSeparatedList(
           context.state.currencies
         );
-        fetch(
+        /*fetch(
           `http://data.fixer.io/api/latest?access_key=${process.env.VUE_APP_FIXER_API_KEY}&base=EUR&symbols=${symbolsList}&format=1`
-        )
-          .then((response) => response.json())
+        )*/
+        //use netlify serverless function
+        fetch(`/.netlify/functions/get-eur-exchange-rates?symbols=${symbolsList}`)
+          .then(response => response.json())
           .then((data) => {
+            console.log(data)
             if (data.success) {
               context.commit("ADD_RATES", data.rates);
               resolve("ok");
